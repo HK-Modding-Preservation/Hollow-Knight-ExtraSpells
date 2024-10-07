@@ -30,6 +30,10 @@ namespace ExtraSpells.Spells
             FsmState QuakeDownState = explodeDive.CopyStateActions("Quake1 Down", "Quake1 Down");
             FsmState QuakeLandState = explodeDive.CopyStateActions("Quake1 Land", "Quake1 Land");
             FsmState QuakeFinishState = explodeDive.CopyStateActions("Quake Finish", "Quake Finish");
+            FsmState LevelCheckState = explodeDive.CopyStateActions("Level Check 2", "Level Check 2");
+
+            LevelCheckState.RemoveAction(2);
+            LevelCheckState.RemoveAction(0);
 
             QuakeLandState.RemoveAction(12); //activate slam
             QuakeLandState.RemoveAction(9); //activate pillar effect
@@ -50,7 +54,9 @@ namespace ExtraSpells.Spells
             //q off ground
             explodeDive.AddTransition("FINISHED", "Quake Antic", "Q Off Ground");
             //quake antic
-            explodeDive.AddTransition("ANIM END", "Q1 Effect", "Quake Antic");
+            explodeDive.AddTransition("ANIM END", "Level Check 2", "Quake Antic");
+            //level check
+            explodeDive.AddTransition("FINISHED", "Q1 Effect", "Level Check 2");
             //q1 effect
             explodeDive.AddTransition("FINISHED", "Quake1 Down", "Q1 Effect");
             //quake1 down
@@ -59,6 +65,7 @@ namespace ExtraSpells.Spells
             explodeDive.AddTransition("FINISHED", "Quake Finish", "Quake1 Land");
 
             explodeDive.mpCostState = Q1EffectState;
+            explodeDive.SetFinalState("Quake Finish");
             SpellHelper.AddSpell(explodeDive, true);
         }
     }

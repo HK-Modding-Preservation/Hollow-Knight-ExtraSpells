@@ -1,15 +1,6 @@
-﻿using Modding;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UObject = UnityEngine.Object;
-using SpellChanger;
-using HutongGames.PlayMaker;
-using Vasi;
-using HutongGames.PlayMaker.Actions;
+﻿using SpellChanger;
 using ExtraSpells.Spells;
-using System.Reflection;
+
 
 namespace ExtraSpells
 {
@@ -34,7 +25,7 @@ namespace ExtraSpells
            Instance = this;
         }
 
-        public override string GetVersion() => "1.0.0.0";
+        public override string GetVersion() => "1.0.0.1";
 
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
         {

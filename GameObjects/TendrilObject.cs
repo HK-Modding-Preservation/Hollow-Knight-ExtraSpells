@@ -59,11 +59,25 @@ namespace ExtraSpells.GameObjects
 
             collider.OverlapCollider(filter, results);
 
+            List<GameObject> hitobjects = new List<GameObject>(); 
+
             foreach (Collider2D col in results)
             {
+                GameObject obj;
                 HealthManager manager = col.gameObject.GetComponent<HealthManager>();
+                if (manager == null)
+                {
+                    //edge case for pv, i guess
+                    manager = col.GetComponentInParent<HealthManager>();
+                }
+
                 if (manager == null) { continue; }
 
+                obj = manager.gameObject;
+
+                if (hitobjects.Find(x => x == obj) != null) { continue; }
+
+                hitobjects.Add(obj);
 
                 manager.Hit(new HitInstance
                 {

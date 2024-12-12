@@ -22,6 +22,11 @@ namespace ExtraSpells.GameObjects
         void OnTriggerEnter2D(Collider2D col)
         {
             HealthManager manager = col.gameObject.GetComponent<HealthManager>();
+            if (manager == null) {
+                //edge case for pv, i guess
+                manager = col.GetComponentInParent<HealthManager>(); 
+            }
+
             if (manager == null) { return; }
 
             float multiplier = 1f;
